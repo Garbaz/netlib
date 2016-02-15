@@ -14,9 +14,9 @@
  * return:            Returns UNIX file descriptor to which one can write. Returns error code upon failure (error codes below)
  * 
  * {error codes}:
- *  Unable to resolve address =>               -1
- *  Unable to set up UNIX files descriptor =>  -2
- *  Unable to connect to server =>             -3
+ *  Unable to resolve address =>   -1
+ *  Unable to set up socket =>     -2
+ *  Unable to connect to server => -3
  */
 int tconnect(char* target, char* target_port)
 {
@@ -94,10 +94,10 @@ int tsend_recv(int targetfd, char* bytes, int *bytes_size)
  * return:           Returns UNIX file descriptor on which one can listen for & accept incomming connections. Returns error code upon failure (error codes below)
  * 
  * {error codes}:
- *  Unable to resolve address =>                               -1
- *  Unable to set up UNIX files descriptor =>                  -2
- *  Unable to bind to port =>                                  -3
- *  Unable to force bind to port (Enable reuse of address)  => -4
+ *  Unable to resolve address =>                           -1
+ *  Unable to set up UNIX files descriptor =>              -2
+ *  Unable to bind to port =>                              -3
+ *  Unable to force bind to port (Enable reuse of port) => -4
  */
 int tcreate_host(const char* PORT)
 {
@@ -199,7 +199,54 @@ int tlisten_accept_a(int sockfd, const int BACKLOG, struct sockaddr_storage *add
 	return retfd;
 }
 
-int[] tpollfds(int *fds, int biggest_fd)
+/**
+ * Send UDP packet to target host and return bytes sent.
+ * 
+ * const char* target:      IP or web address of host to send to (e.g. "192.168.0.1", "www.example.com")
+ * const char* target_port: Port to send to at target (e.g. "80", "1729")
+ * const char* data:        Pointer to data which will be send
+ * const int DATA_SIZE:     Size of [data] memory block
+ * 
+ * return:                  Returns bytes send (might not be equal to DATA_SIZE). Returns error code upon failure (error codes below)
+ * 
+ * {error codes}:
+ *  Unable to resolve address => -1
+ *  Unable to set up socket =>   -2
+ *  Unable to send data =>       -3
+ */
+int usend_once(const char* target, const char* target_port, const char* data, const int DATA_SIZE)
 {
-	return select(biggest_fd+1, &fds, NULL, NULL, 0);
+	struct addrinfo hints, *servinfo;
+	int sockfd;
+	int retbytes;
+	
+	memset(&hints, 0, sizeof hints);
+	
+	hints.ai_family = AF_UNSPEC;
+	hints.ai_socktype = SOCK_DGRAM;
+	
+	if(getaddrinfo(target, target_port, &hints, &servinfo) != 0)
+	{
+		return -1;
+	}
+	if((sockfd = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol)) == -1)
+	{
+		freeaddrinfo(servinfo);
+		return -2;
+	}
+	if((retbytes = sendto(sockfd, data, DATA_SIZE, 0, servinfo->ai_addr, servinfo->ai_addrlen)) == -1)
+	{
+		freeaddrinfo(servinfo);
+		return -3;
+	}
+	freeaddrinfo(servinfo);
+	close(sockfd);
+	return retbytes;
 }
+
+/*
+void tpollfds(int *fds, int biggest_fd)
+{
+	fds = select(biggest_fd+1, &fds, NULL, NULL, 0);
+}
+*/
