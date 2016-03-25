@@ -57,6 +57,50 @@ void tdisconnect(int targetfd)
 
 
 /**
+* Sends data via TCP to a target host.
+* 
+* int targetfd:    UNIX file descriptor of target (With TCP connection established)
+* char* bytes:     Pointer to the bytes which will be sent.
+* int &bytes_size: Number of bytes to send (size of [char* bytes]).
+* 
+* return:          Returns 0 upon success and error code upon failure
+* 
+* {error codes}:
+*  Unable to send data =>                     -1
+*/
+int tsend(int targetfd, char* bytes, int bytes_size)
+{
+	int bytes_sent = 0;
+	do
+	{
+		bytes_sent = send(targetfd, bytes, bytes_size, 0);
+		if(bytes_sent == -1) return -1;
+	}while(bytes_sent < bytes_size);
+	return 0;
+}
+
+/**
+* Recieve data from host via TCP.
+* 
+* int targetfd:    UNIX file descriptor of target (With TCP connection established)
+* char* bytes:     Pointer to the bytes where the recieved data will be written.
+* int &bytes_size: Number of bytes allocated at [char* bytes]. Will be set to amount of bytes recieved!
+* 
+* return:          Returns 0 upon success and error code upon failure
+* 
+* {error codes}:
+*  Recieved no data / target disconnected =>  -2
+*/
+int trecv(int targetfd, char* bytes, int *bytes_size)
+{
+	if((*bytes_size = recv(targetfd, bytes, *bytes_size, 0)) < 1)
+	{
+		return -2;
+	}
+	return 0;
+}
+
+/**
 * Sends data via TCP to a target host and recieves response data from host.
 * 
 * int targetfd:    UNIX file descriptor of target (With TCP connection established)
@@ -82,29 +126,6 @@ int tsend_recv(int targetfd, char* bytes, int *bytes_size)
 	{
 		return -2;
 	}
-	return 0;
-}
-
-/**
-* Sends data via TCP to a target host.
-* 
-* int targetfd:    UNIX file descriptor of target (With TCP connection established)
-* char* bytes:     Pointer to the bytes which will be sent.
-* int &bytes_size: Number of bytes to send (size of [char* bytes]).
-* 
-* return:          Returns 0 upon success and error code upon failure
-* 
-* {error codes}:
-*  Unable to send data =>                     -1
-*/
-int tsend(int targetfd, char* bytes, int *bytes_size)
-{
-	int bytes_sent = 0;
-	do
-	{
-		bytes_sent = send(targetfd, bytes, *bytes_size, 0);
-		if(bytes_sent == -1) return -1;
-	}while(bytes_sent < *bytes_size);
 	return 0;
 }
 
