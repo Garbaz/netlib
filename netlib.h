@@ -85,6 +85,28 @@ int tsend_recv(int targetfd, char* bytes, int *bytes_size)
 	return 0;
 }
 
+/**
+* Sends data via TCP to a target host.
+* 
+* int targetfd:    UNIX file descriptor of target (With TCP connection established)
+* char* bytes:     Pointer to the bytes which will be sent.
+* int &bytes_size: Number of bytes to send (size of [char* bytes]).
+* 
+* return:          Returns 0 upon success and error code upon failure
+* 
+* {error codes}:
+*  Unable to send data =>                     -1
+*/
+int tsend(int targetfd, char* bytes, int *bytes_size)
+{
+	int bytes_sent = 0;
+	do
+	{
+		bytes_sent = send(targetfd, bytes, *bytes_size, 0);
+		if(bytes_sent == -1) return -1;
+	}while(bytes_sent < *bytes_size);
+	return 0;
+}
 
 /**
  * Creates a TCP host on port [PORT] and returns UNIX file descriptor.
