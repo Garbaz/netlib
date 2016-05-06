@@ -1,2 +1,2 @@
 # netlib
-C++ network library by Garbaz
+C network library by Garbaz
