@@ -1,10 +1,10 @@
 #!/bin/bash
 targetfolder="/usr/include/garbaz/"
-echo "Will install netlib into the following folder:"
-echo "$targetfolder"
-ls /usr/include/garbaz/ 2>/dev/null 1>/dev/null
+printf "Will install netlib into the following folder:\n"
+printf "$targetfolder\n"
+ls "$targetfolder" 2>/dev/null 1>/dev/null
 if [ "$?" -ne "0" ];then
-mkdir /usr/include/garbaz/
+mkdir "$targetfolder" || printf "Unable to create folder. Insufficient permissions?\n\n"
 fi 
-cp "$(dirname $0)/netlib.h" "/usr/include/garbaz/"
-echo "done."
+cp "$(dirname $0)/netlib.h" "$targetfolder" || printf "Unable to copy file. Insufficient permissions?\n\n"
+printf "DONE.\n\n"
