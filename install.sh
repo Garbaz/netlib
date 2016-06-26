@@ -1,5 +1,6 @@
-#!/bin/bash
+
 targetfolder="/usr/include/garbaz/"
+
 printf "Will install netlib into the following folder:\n"
 printf "$targetfolder\n"
 ls "$targetfolder" 2>/dev/null 1>/dev/null
