@@ -2,7 +2,7 @@
 
 installdir=/usr/include/garbaz/
 cmd_makedir=mkdir -p
-cmd_copy=sudo cp
+cmd_copy=cp
 
 install: netlib.h
 ifeq ($(wildcard $(installdir).),)
