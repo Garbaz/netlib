@@ -11,9 +11,10 @@ ERROR HANDLING:
 		#define {FUNCTION}_ERR__STR(err)    {ERROR STRING for ERROR CODE err}
 
 	For easy error handling:
-		for(int err = -1; err >= -{FUNCTION}_ERRS; err--)
+		ret = {function}(...);
+		if(ret < 0)
 		{
-			fprintf(stderr,"ERROR (%i): %s\n", err, {FUNCTION}_ERR__STR(err));
+			fprintf(stderr,"ERROR (%i): %s\n", ret, {FUNCTION}_ERR__STR(ret));
 		}
 
 
