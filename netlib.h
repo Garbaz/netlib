@@ -2,8 +2,8 @@
 
 A small one header unix network wrapper / library with extensive error handling.
 
-ERROR HANDLING:
-	All functions return negative integers starting at -1.
+Error Handling:
+	All functions return negative integers upon error (starting at -1).
 	There are macros defined for all errors in the following manner:
 		#define {FUNCTION}_ERRS             {COUNT OF ERROR CODES}
 		#define {FUNCTION}_ERR_{ERROR}      {ERROR CODE}
@@ -14,7 +14,7 @@ ERROR HANDLING:
 		ret = {function}(...);
 		if(ret < 0)
 		{
-			fprintf(stderr,"ERROR (%i): %s\n", ret, {FUNCTION}_ERR__STR(ret));
+			fprintf(stderr, "ERROR (%i): %s\n", ret, {FUNCTION}_ERR__STR(ret));
 		}
 
 
@@ -29,7 +29,6 @@ GITHUB: https://github.com/garbaz/netlib
 #include <unistd.h>
 #include <netdb.h>
 #include <string.h>
-
 
 
 #define TCONNECT_ERRS 3
