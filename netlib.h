@@ -20,7 +20,7 @@ Error Handling:
 
 AUTHOR: Garbaz (https://github.com/garbaz)
 E-MAIL: garbaz@t-online.de
-GITHUB: https://github.com/garbaz/netlib
+GIT: https://github.com/garbaz/netlib
 */
 
 #include <sys/types.h>
