@@ -31,12 +31,12 @@ GIT: https://github.com/garbaz/netlib
 #include <string.h>
 
 
-#define TCONNECT_ERRS 3
-#define TCONNECT_ERR_ADDR -1
+#define TCONNECT_ERRS (3)
+#define TCONNECT_ERR_ADDR (-1)
 #define TCONNECT_ERR_ADDR_STR "Unable to resolve address"
-#define TCONNECT_ERR_SOCK -2
+#define TCONNECT_ERR_SOCK (-2)
 #define TCONNECT_ERR_SOCK_STR "Unable to set up socket"
-#define TCONNECT_ERR_CONN -3
+#define TCONNECT_ERR_CONN (-3)
 #define TCONNECT_ERR_CONN_STR "Unable to connect to server"
 
 #define TCONNECT_ERR__STR(err) ((err == TCONNECT_ERR_ADDR) ? TCONNECT_ERR_ADDR_STR : (err == TCONNECT_ERR_SOCK) ? TCONNECT_ERR_SOCK_STR : (err == TCONNECT_ERR_CONN) ? TCONNECT_ERR_CONN_STR : "")
@@ -81,7 +81,7 @@ int tconnect(char* target, char* target_port)
 	return retfd;
 }
 
-#define TDISCONNECT_ERRS 0
+#define TDISCONNECT_ERRS (0)
 #define TDISCONNECT_ERR__STR(err) ""
 
 /**
@@ -94,8 +94,8 @@ void tdisconnect(int targetfd)
 }
 
 
-#define TSEND_ERRS 1
-#define TSEND_ERR_SEND -1
+#define TSEND_ERRS (1)
+#define TSEND_ERR_SEND (-1)
 #define TSEND_ERR_SEND_STR "Unable to send data"
 
 #define TSEND_ERR__STR(err) ((err==TSEND_ERR_SEND) ? TSEND_ERR_SEND_STR : "")
@@ -123,8 +123,8 @@ int tsend(int targetfd, char* bytes, int bytes_size)
 	return 0;
 }
 
-#define TRECV_ERRS 1
-#define TRECV_ERR_NODATA -1
+#define TRECV_ERRS (1)
+#define TRECV_ERR_NODATA (-1)
 #define TRECV_ERR_NODATA_STR "Recieved no data or target disconnected"
 
 #define TRECV_ERR__STR(err) ((err == TRECV_ERR_NODATA) ? TRECV_ERR_NODATA_STR : "")
@@ -150,10 +150,10 @@ int trecv(int targetfd, char* bytes, int *bytes_size)
 	return 0;
 }
 
-#define TSEND_RECV_ERRS 2
-#define TSEND_RECV_ERR_SEND -1
+#define TSEND_RECV_ERRS (2)
+#define TSEND_RECV_ERR_SEND (-1)
 #define TSEND_RECV_ERR_SEND_STR "Unable to send data"
-#define TSEND_RECV_ERR_NODATA -2
+#define TSEND_RECV_ERR_NODATA (-2)
 #define TSEND_RECV_ERR_NODATA_STR "Recieved no data or target disconnected"
 
 #define TSEND_RECV_ERR__STR(err) ((err == TSEND_RECV_ERR_SEND) ? TSEND_RECV_ERR_SEND_STR : (err == TSEND_RECV_ERR_NODATA) ? TSEND_RECV_ERR_NODATA_STR : "")
@@ -187,14 +187,14 @@ int tsend_recv(int targetfd, char* bytes, int *bytes_size)
 	return 0;
 }
 
-#define TCREATE_HOST_ERRS 4
-#define TCREATE_HOST_ERR_ADDR -1
+#define TCREATE_HOST_ERRS (4)
+#define TCREATE_HOST_ERR_ADDR (-1)
 #define TCREATE_HOST_ERR_ADDR_STR "Unable to resolve address"
-#define TCREATE_HOST_ERR_FD -2
+#define TCREATE_HOST_ERR_FD (-2)
 #define TCREATE_HOST_ERR_FD_STR "Unable to set up files descriptor"
-#define TCREATE_HOST_ERR_PORT -3
+#define TCREATE_HOST_ERR_PORT (-3)
 #define TCREATE_HOST_ERR_PORT_STR "Unable to bind to port"
-#define TCREATE_HOST_ERR_FPORT -4
+#define TCREATE_HOST_ERR_FPORT (-4)
 #define TCREATE_HOST_ERR_FPORT_STR "Unable to force bind to port"
 
 #define TCREATE_HOST_ERR__STR(err) ((err == TCREATE_HOST_ERR_ADDR) ? TCREATE_HOST_ERR_ADDR : (err == TCREATE_HOST_ERR_FD) ? TCREATE_HOST_ERR_FD_STR :(err == TCREATE_HOST_ERR_PORT) ? TCREATE_HOST_ERR_PORT_STR : (err == TCREATE_HOST_ERR_FPORT) ? TCREATE_HOST_ERR_FPORT_STR : "")
@@ -248,10 +248,10 @@ int tcreate_host(const char* PORT)
 }
 
 
-#define TLISTEN_ACCEPT_ERRS 2
-#define TLISTEN_ACCEPT_ERR_LISTEN -1
+#define TLISTEN_ACCEPT_ERRS (2)
+#define TLISTEN_ACCEPT_ERR_LISTEN (-1)
 #define TLISTEN_ACCEPT_ERR_LISTEN_STR "Unable to listen for incoming connection"
-#define TLISTEN_ACCEPT_ERR_ACCEPT -2
+#define TLISTEN_ACCEPT_ERR_ACCEPT (-2)
 #define TLISTEN_ACCEPT_ERR_ACCEPT_STR "Unable to accept incoming connection"
 
 #define TLISTEN_ACCEPT_ERR__STR(err) ((err == TLISTEN_ACCEPT_ERR_LISTEN) ? TLISTEN_ACCEPT_ERR_LISTEN_STR : (err == TLISTEN_ACCEPT_ERR_ACCEPT) ? TLISTEN_ACCEPT_ERR_ACCEPT_STR : "")
@@ -321,10 +321,10 @@ int tlisten_accept_a(int sockfd, const int BACKLOG, struct sockaddr_storage *add
 	return retfd;
 }
 
-#define USOCK_ERRS 2
-#define USOCK_ERR_ADDR -1
+#define USOCK_ERRS (2)
+#define USOCK_ERR_ADDR (-1)
 #define USOCK_ERR_ADDR_STR "Unable to resolve address"
-#define USOCK_ERR_SOCK -2
+#define USOCK_ERR_SOCK (-2)
 #define USOCK_ERR_SOCK_STR "Unable to set up socket"
 
 #define USOCK_ERR__STR(err) ((err == USOCK_ERR_ADDR) ? USOCK_ERR_ADDR_STR : (err == USOCK_ERR_SOCK) ? USOCK_ERR_SOCK_STR : "")
@@ -365,8 +365,8 @@ int usock(const char* target, const char* target_port, struct addrinfo **targeti
 }
 
 
-#define USEND_ERRS 1
-#define USEND_ERR_SEND -1
+#define USEND_ERRS (1)
+#define USEND_ERR_SEND (-1)
 #define USEND_ERR_SEND_STR "Unable to send data"
 
 #define USEND_ERR__STR(err) ((err == USEND_ERR_SEND) ? USEND_ERR_SEND_STR : "")
@@ -390,12 +390,12 @@ int usend(int sockfd, struct addrinfo *targetinfo, const char* data, const int D
 }
 
 
-#define USEND_ONCE_ERRS 3
-#define USEND_ONCE_ERR_ADDR -1
+#define USEND_ONCE_ERRS (3)
+#define USEND_ONCE_ERR_ADDR (-1)
 #define USEND_ONCE_ERR_ADDR_STR "Unable to resolve address"
-#define USEND_ONCE_ERR_SOCK -2
+#define USEND_ONCE_ERR_SOCK (-2)
 #define USEND_ONCE_ERR_SOCK_STR "Unable to set up socket"
-#define USEND_ONCE_ERR_SEND -3
+#define USEND_ONCE_ERR_SEND (-3)
 #define USEND_ONCE_ERR_SEND_STR "Unable to send data"
 
 #define USEND_ONCE_ERR__STR(err) ((err == USEND_ONCE_ERR_ADDR) ? USEND_ONCE_ERR_ADDR_STR : (err == USEND_ONCE_ERR_SOCK) ? USEND_ONCE_ERR_SOCK_STR : (err == USEND_ONCE_ERR_SEND) ? USEND_ONCE_ERR_SEND_STR : "")
@@ -446,14 +446,14 @@ int usend_once(const char* target, const char* target_port, const char* data, co
 }
 
 
-#define UCREATE_HOST_ERRS 4
-#define UCREATE_HOST_ERR_ADDR -1
+#define UCREATE_HOST_ERRS (4)
+#define UCREATE_HOST_ERR_ADDR (-1)
 #define UCREATE_HOST_ERR_ADDR_STR "Unable to resolve address"
-#define UCREATE_HOST_ERR_FD -2
+#define UCREATE_HOST_ERR_FD (-2)
 #define UCREATE_HOST_ERR_FD_STR "Unable to set up files descriptor"
-#define UCREATE_HOST_ERR_PORT -3
+#define UCREATE_HOST_ERR_PORT (-3)
 #define UCREATE_HOST_ERR_PORT_STR "Unable to bind to port"
-#define UCREATE_HOST_ERR_FPORT -4
+#define UCREATE_HOST_ERR_FPORT (-4)
 #define UCREATE_HOST_ERR_FPORT_STR "Unable to force bind to port"
 
 #define UCREATE_HOST_ERR__STR(err) ((err == UCREATE_HOST_ERR_ADDR) ? UCREATE_HOST_ERR_ADDR : (err == UCREATE_HOST_ERR_FD) ? UCREATE_HOST_ERR_FD_STR :(err == UCREATE_HOST_ERR_PORT) ? UCREATE_HOST_ERR_PORT_STR : (err == UCREATE_HOST_ERR_FPORT) ? UCREATE_HOST_ERR_FPORT_STR : "")
